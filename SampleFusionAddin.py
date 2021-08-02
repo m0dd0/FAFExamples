@@ -1,6 +1,6 @@
 import adsk.core, adsk.fusion, adsk.cam, traceback
 
-# from .fusion_addin_framework import fusion_addin_framework as faf
+from .fusion_addin_framework import fusion_addin_framework as faf
 
 
 def run(context):
