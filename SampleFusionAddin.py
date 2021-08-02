@@ -2,10 +2,18 @@ import adsk.core, adsk.fusion, adsk.cam, traceback
 
 from .fusion_addin_framework import fusion_addin_framework as faf
 
+# simplest possible addin
+cmd = None
+
+
+def say_hi(event_args: adsk.core.CommandEventArgs):
+    adsk.core.Application.get().userInterface.messageBox("hi")
+
 
 def run(context):
     try:
-        adsk.core.Application.get().userInterface.messageBox("hi")
+        global cmd
+        cmd = faf.AddinCommand(onExecute=say_hi)
     except:
         adsk.core.Application.get().userInterface.messageBox(
             "Failed:\n{}".format(traceback.format_exc())
@@ -14,7 +22,7 @@ def run(context):
 
 def stop(context):
     try:
-        pass
+        cmd.addin.stop()
     except:
         adsk.core.Application.get().userInterface.messageBox(
             "Failed:\n{}".format(traceback.format_exc())
